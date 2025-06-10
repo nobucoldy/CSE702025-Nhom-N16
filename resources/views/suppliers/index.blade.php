@@ -1,34 +1,33 @@
-
 @extends('layouts.app')
 
 @section('content')
 <div class="container py-3">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Danh mục sản phẩm</h2>
-        <a href="{{ route('products.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Thêm sản phẩm
+        <h2>Danh mục nhà cung cấp</h2>
+        <a href="{{ route('suppliers.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Thêm nhà cung cấp
         </a>
     </div>
 
     <!-- Alert message -->
-
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-        <div class="card mb-3 shadow-sm">
+
+    <div class="card mb-3 shadow-sm">
         <div class="card-body py-2">
-            <form action="{{ route('products.search') }}" method="GET" class="row g-2 align-items-center">
+            <form action="{{ route('suppliers.search') }}" method="GET" class="row g-2 align-items-center">
                 <div class="col-md-8 col-12">
                     <div class="input-group">
                         <span class="input-group-text bg-transparent border-end-0">
                             <i class="fas fa-search text-muted"></i>
                         </span>
                         <input type="text" name="keyword" class="form-control border-start-0" 
-       placeholder="Tìm theo mã sản phẩm, tên sản phẩm hoặc nhà cung cấp..." 
+       placeholder="Tìm theo mã sản phẩm, tên sản phẩm hoặc địa chỉ..." 
        value="{{ request('keyword') }}">
 
                     </div>
@@ -38,7 +37,7 @@
                         <i class="fas fa-search me-1"></i> Tìm kiếm
                     </button>
                     @if(request()->has('keyword'))
-                        <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('invent.index') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-undo"></i>
                         </a>
                     @endif
@@ -47,38 +46,38 @@
         </div>
     </div>
 
-    <!-- Product table -->
+
+    <!-- Supplier table -->
     <div class="card">
         <div class="card-body p-0">
-            @if($productsLists->count())
-            
+            @if($suppliers->count())
                 <div class="table-responsive">
                     <table class="table table-striped table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>Mã SP</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Nhà cung cấp</th>
+                                <th>Mã nhà cung cấp</th>
+                                <th>Tên nhà cung cấp</th>
+                                <th>Địa chỉ</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($productsLists as $productList)
+                            @foreach($suppliers as $supplier)
                             <tr>
-                                <td>{{ $productList->codePro }}</td>
-                                <td>{{ $productList->name }}</td>
-                                <td>{{ $productList->supplier->supplier ?? 'N/A' }}</td>
+                                <td>{{ $supplier->codeSup }}</td>
+                                <td>{{ $supplier->supplier }}</td>
+                                <td>{{ $supplier->address }}</td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('products.edit', $productList->codePro) }}" 
+                                        <a href="{{ route('suppliers.edit', $supplier->codeSup) }}" 
                                            class="btn btn-warning" title="Sửa">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('products.destroy', $productList->codePro) }}" method="POST">
+                                        <form action="{{ route('suppliers.destroy', $supplier->codeSup) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" title="Xóa" 
-                                                    onclick="return confirm('Xác nhận xóa sản phẩm?')">
+                                                    onclick="return confirm('Xác nhận xóa nhà cung cấp?')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -88,16 +87,14 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="card mb-3">
-  
-</div>
+                    
                 </div>
             @else
                 <div class="text-center py-4">
-                    <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-                    <p class="text-muted">Không có sản phẩm nào</p>
-                    <a href="{{ route('products.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Thêm sản phẩm đầu tiên
+                    <i class="fas fa-building fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Không có nhà cung cấp nào</p>
+                    <a href="{{ route('suppliers.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Thêm nhà cung cấp đầu tiên
                     </a>
                 </div>
             @endif
@@ -105,7 +102,7 @@
     </div>
 </div>
 
-<!-- Simple CSS improvements -->
+<!-- Consistent styling with the product list -->
 <style>
     .table-hover tbody tr:hover {
         background-color: #f8f9fa;

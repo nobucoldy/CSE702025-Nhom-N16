@@ -37,7 +37,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Cập nhật</button>
-        <a href="{{ route('home') }}" class="btn btn-secondary">
+        <a href="{{ route('/') }}" class="btn btn-secondary">
             <i class="fas fa-times"></i> Hủy bỏ
         </a>
     </form>

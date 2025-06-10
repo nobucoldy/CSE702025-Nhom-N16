@@ -1,53 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="position-absolute top-0 end-0 m-3">
-    <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-sm">
-        <i class="fas fa-user-edit"></i> 
-    </a>
-</div>
 <div class="container">
-    
-    <h1>Chỉnh sửa hàng hóa</h1>
-    <form action="{{ route('products.update', $product->id) }}" method="POST">
+    <h1>Sửa sản phẩm</h1>
+
+    <form action="{{ route('products.update', $productList->codePro) }}" method="POST">
         @csrf
-        @method('PUT') <!-- Sử dụng phương thức PUT để cập nhật -->
+        @method('PUT')
 
-        <div class="form-group">
-            <label for="name">Tên hàng</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ $product->name }}" required>
+        <div class="mb-3">
+            <label for="codePro" class="form-label">Mã sản phẩm</label>
+            <input type="text" class="form-control @error('codePro') is-invalid @enderror" id="codePro" name="codePro" value="{{ old('codePro', $productList->codePro) }}" required>
+            @error('codePro')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
-        <div class="form-group">
-            <label for="quantity">Số lượng</label>
-            <input type="number" name="quantity" id="quantity" class="form-control" value="{{ $product->quantity }}" required>
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $productList->name) }}" required>
+            @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
-        <div class="form-group">
-            <label for="import_date">Ngày nhập</label>
-            <input type="date" name="import_date" id="import_date" class="form-control" value="{{ $product->import_date }}" required>
+        <div class="mb-3">
+            <label for="codeSup" class="form-label">Nhà cung cấp</label>
+            <select name="codeSup" id="codeSup" class="form-select @error('codeSup') is-invalid @enderror" required>
+                <option value="">-- Chọn nhà cung cấp --</option>
+                @foreach ($suppliers as $supplier)
+                    <option value="{{ $supplier->codeSup }}" {{ (old('codeSup', $productList->codeSup) == $supplier->codeSup) ? 'selected' : '' }}>
+                        {{ $supplier->supplier }} ({{ $supplier->address }})
+                    </option>
+                @endforeach
+            </select>
+            @error('codeSup')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
-        <div class="form-group">
-            <label for="expiry_date">Ngày nhập</label>
-            <input type="date" name="expiry_date" id="expiry_date" class="form-control" value="{{ $product->expiry_date }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="supplier">Nhà cung cấp</label>
-            <input type="text" name="supplier" id="supplier" class="form-control" 
-                value="{{ $product->supplier ? $product->supplier->supplier : '' }}" required >
-        </div>
-
-        <div class="form-group">
-            <label for="address">Địa chỉ nhà cung cấp</label>
-            <input type="text" name="address" id="address" class="form-control" 
-                value="{{ $product->supplier ? $product->supplier->address : '' }}" required >
-        </div>
-
 
         <button type="submit" class="btn btn-primary">Cập nhật</button>
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">Hủy bỏ</a>
+        <a href="{{ route('products.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection

@@ -1,54 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="position-absolute top-0 end-0 m-3">
-    <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-sm">
-        <i class="fas fa-user-edit"></i> 
-    </a>
-</div>
 <div class="container">
-    <div class="d-flex">
-        <a href="{{ route('home') }}" class="btn btn-primary ms-auto">
-            <i class=""></i> Trang chủ
-        </a>
-    </div>
-    <h1>Thêm hàng hóa mới</h1>
+    <h1>Thêm sản phẩm mới</h1>
+
     <form action="{{ route('products.store') }}" method="POST">
         @csrf
-        
-        <div class="form-group">
-            <label for="name">Tên hàng</label>
-            <input type="text" name="name" id="name" class="form-control" required>
-        </div>
-    
-        <div class="form-group">
-            <label for="quantity">Số lượng</label>
-            <input type="number" name="quantity" id="quantity" class="form-control" required>
-        </div>
-    
-        <div class="form-group">
-            <label for="import_date">Ngày nhập</label>
-            <input type="date" name="import_date" id="import_date" class="form-control" required>
+
+        <div class="mb-3">
+            <label for="codePro" class="form-label">Mã sản phẩm</label>
+            <input type="text" class="form-control @error('codePro') is-invalid @enderror" id="codePro" name="codePro" value="{{ old('codePro') }}" required>
+            @error('codePro')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
-        <div class="form-group">
-            <label for="expiry_date">Ngày hết hạn</label>
-            <input type="date" name="expiry_date" id="expiry_date" class="form-control" required>
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+            @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
-        <div class="form-group">
-            <label for="supplier">Nhà cung cấp</label>
-            <input type="text" name="supplier" id="supplier" class="form-control" required>
+        <div class="mb-3">
+            <label for="codeSup" class="form-label">Nhà cung cấp</label>
+            <select name="codeSup" id="codeSup" class="form-select @error('codeSup') is-invalid @enderror" required>
+                <option value="">-- Chọn nhà cung cấp --</option>
+                @foreach ($suppliers as $supplier)
+                    <option value="{{ $supplier->codeSup }}" {{ old('codeSup') == $supplier->codeSup ? 'selected' : '' }}>
+                        {{ $supplier->supplier }} ({{ $supplier->codeSup }})
+                    </option>
+                @endforeach
+            </select>
+            @error('codeSup')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
-        <div class="form-group">
-            <label for="supplier">Địa chỉ nhà cung cấp</label>
-            <input type="text" name="address" id="address" class="form-control" required>
-        </div>
-    
-    
-        <button type="submit" class="btn btn-primary">Thêm hàng hóa</button>
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">Hủy bỏ</a>
+        <button type="submit" class="btn btn-success">Thêm</button>
+        <a href="{{ route('products.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection

@@ -6,26 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSuppliersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('suppliers', function (Blueprint $table) {
-            $table->id(); // Khóa chính tự động tăng
-            $table->text('supplier'); // Tên nhà cung cấp
-            $table->text('address');
-            $table->timestamps(); // Thêm created_at và updated_at
-        });
+          Schema::create('suppliers', function (Blueprint $table) {
+        $table->string('codeSup', 50)->primary(); // Mã nhà cung cấp
+        $table->string('supplier');
+        $table->text('address');
+        $table->timestamps();
+    });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('suppliers');

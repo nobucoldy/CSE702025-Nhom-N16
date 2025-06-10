@@ -6,26 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateProductsListsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('products_lists', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('supplier');
-            $table->timestamps();
-        });
+             $table->string('codePro', 50)->primary(); // ← đảm bảo là primary
+    $table->string('name');
+    $table->string('codeSup', 50);
+    $table->timestamps();
+
+    $table->foreign('codeSup')->references('codeSup')->on('suppliers')->onDelete('cascade');
+        }); // ← Đây là dấu ) đúng ở cuối
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('products_lists');
