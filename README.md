@@ -14,7 +14,7 @@ Dự án này là một phầm mềm quản lý kho hàng, được xây dựng 
 - Quản lý thông tin của các nhà cung cấp sản phẩm (tên nhà cung cấp, địa chỉ).
 
 ```
- git clone https://github.com/nobucoldy/quanlykhohang.git
+ git clone https://github.com/nobucoldy/InvManage.git
  cd quanlykhohang
 
  composer install
