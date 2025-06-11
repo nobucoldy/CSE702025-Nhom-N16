@@ -6,9 +6,14 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Danh mục sản phẩm</h2>
+        @auth
+    @if(Auth::user()->is_admin)
         <a href="{{ route('products.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Thêm sản phẩm
         </a>
+    @endif
+@endauth
+
     </div>
 
     <!-- Alert message -->
@@ -69,21 +74,26 @@
                                 <td>{{ $productList->name }}</td>
                                 <td>{{ $productList->supplier->supplier ?? 'N/A' }}</td>
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('products.edit', $productList->codePro) }}" 
-                                           class="btn btn-warning" title="Sửa">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('products.destroy', $productList->codePro) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" title="Xóa" 
-                                                    onclick="return confirm('Xác nhận xóa sản phẩm?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                    @if(Auth::check() && Auth::user()->is_admin)
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{{ route('products.edit', $productList->codePro) }}" 
+                                            class="btn btn-warning" title="Sửa">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('products.destroy', $productList->codePro) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" title="Xóa" 
+                                                        onclick="return confirm('Xác nhận xóa sản phẩm?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <span class="text-muted">Không có quyền</span>
+                                    @endif
                                 </td>
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -96,9 +106,14 @@
                 <div class="text-center py-4">
                     <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
                     <p class="text-muted">Không có sản phẩm nào</p>
-                    <a href="{{ route('products.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Thêm sản phẩm đầu tiên
-                    </a>
+                    @auth
+                        @if(Auth::user()->is_admin)
+                            <a href="{{ route('products.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Thêm sản phẩm đầu tiên
+                            </a>
+                        @endif
+                    @endauth
+
                 </div>
             @endif
         </div>

@@ -5,9 +5,11 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Danh mục nhà cung cấp</h2>
-        <a href="{{ route('suppliers.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Thêm nhà cung cấp
-        </a>
+        @auth
+            @if(Auth::user()->isAdmin())
+                <a href="{{ route('suppliers.create') }}" class="btn btn-primary">Thêm nhà cung cấp</a>
+            @endif
+        @endauth
     </div>
 
     <!-- Alert message -->
@@ -68,21 +70,26 @@
                                 <td>{{ $supplier->supplier }}</td>
                                 <td>{{ $supplier->address }}</td>
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('suppliers.edit', $supplier->codeSup) }}" 
-                                           class="btn btn-warning" title="Sửa">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('suppliers.destroy', $supplier->codeSup) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" title="Xóa" 
-                                                    onclick="return confirm('Xác nhận xóa nhà cung cấp?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                    @if(Auth::check() && Auth::user()->is_admin)
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{{ route('suppliers.edit', $supplier->codeSup) }}" 
+                                            class="btn btn-warning" title="Sửa">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('suppliers.destroy', $supplier->codeSup) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" title="Xóa" 
+                                                        onclick="return confirm('Xác nhận xóa nhà cung cấp?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <span class="text-muted">Không có quyền</span>
+                                    @endif
                                 </td>
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -93,9 +100,14 @@
                 <div class="text-center py-4">
                     <i class="fas fa-building fa-3x text-muted mb-3"></i>
                     <p class="text-muted">Không có nhà cung cấp nào</p>
-                    <a href="{{ route('suppliers.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Thêm nhà cung cấp đầu tiên
-                    </a>
+                   @auth
+                        @if(Auth::user()->is_admin)
+                            <a href="{{ route('suppliers.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Thêm nhà cung cấp đầu tiên
+                            </a>
+                        @endif
+                    @endauth
+
                 </div>
             @endif
         </div>

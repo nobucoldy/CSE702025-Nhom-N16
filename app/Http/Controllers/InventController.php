@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Invent;
 use App\Models\ProductsList;
 use Illuminate\Http\Request;
@@ -78,7 +79,11 @@ public function report()
         ->groupBy('codePro')
         ->get();
 
-    return view('report', compact('reportData'));
+    // Kiểm tra nếu người dùng là admin, mới lấy danh sách user
+    $users = auth()->check() && auth()->user()->is_admin ? User::all() : collect();
+
+    return view('report', compact('reportData', 'users'));
 }
+
 
 }

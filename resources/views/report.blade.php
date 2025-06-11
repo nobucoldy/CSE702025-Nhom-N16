@@ -1,7 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container py-3">
+     @if(Auth::user()->is_admin && $users->count())
+    <div class="mt-5">
+        <h4>
+            <i class="fas fa-users text-primary me-2"></i>Danh sách tài khoản người dùng
+        </h4>
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>Quyền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($users as $user)
+                            <tr>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->is_admin ? 'Admin' : 'User' }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@else
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Báo cáo số lượng sản phẩm</h2>
@@ -47,6 +81,7 @@
             @endif
         </div>
     </div>
+    @endif
 </div>
 
 <!-- Custom styling -->

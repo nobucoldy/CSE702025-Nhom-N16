@@ -43,5 +43,14 @@ Route::middleware(['auth'])->group(function () {
     $totalInventory = Invent::sum('quantity');
 
     return view('welcome', compact('productCount', 'supplierCount', 'totalInventory'));
+    });
+    Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('products', ProductController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('suppliers', SupplierController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+    });
+    Route::middleware('is_admin')->group(function () {
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 });
+
+
 });

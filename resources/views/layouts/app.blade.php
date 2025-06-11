@@ -211,7 +211,13 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <img src="{{ asset('avar.jpg') }}" alt="Avatar" class="rounded-circle" width="32" height="32">
-                                <span>{{ Auth::user()->name }}</span>
+                                <div class="d-flex flex-column align-items-start lh-sm">
+                                    <strong>{{ Auth::user()->name }}</strong>
+                                    <small class="text-muted" style="font-size: 0.75rem;">
+                                        {{ Auth::user()->is_admin ? 'Admin' : 'User' }}
+                                    </small>
+                                </div>
+
 </a>
 
 
