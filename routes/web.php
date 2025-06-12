@@ -7,7 +7,6 @@ use App\Models\ProductsList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductListController;
@@ -45,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     return view('welcome', compact('productCount', 'supplierCount', 'totalInventory'));
     });
     Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('products', ProductController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('products', ProductListController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('suppliers', SupplierController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
     });
     Route::middleware('is_admin')->group(function () {
