@@ -34,7 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/suppliers/search', [SupplierController::class, 'search'])->name('suppliers.search');
     Route::get('/invent/search', [InventController::class, 'search'])->name('inventory.search');
 
-    Route::get('/invent/report', [App\Http\Controllers\InventController::class, 'report'])->name('invent.report');
+    Route::get('/inventory', [App\Http\Controllers\InventController::class, 'report'])->name('invent.report');
+    Route::get('/invent/import', [App\Http\Controllers\InventController::class, 'index'])->name('invent.import');
+Route::match(['get', 'post'], '/invent/export', [InventController::class, 'export'])->name('invent.export');
 
     Route::get('/', function () {
     $productCount = ProductsList::count();
@@ -48,8 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('suppliers', SupplierController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
     });
     Route::middleware('is_admin')->group(function () {
-    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
 });
+    Route::get('/invent/export-report', [InventController::class, 'exportReport'])->name('invent.exportReport');
+
 
 
 });

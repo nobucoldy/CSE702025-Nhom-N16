@@ -20,6 +20,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Bootstrap CSS (nếu bạn dùng Bootstrap) -->
+    <!-- Bootstrap Icons CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -143,14 +146,35 @@
     </li>
     
     <!-- Tồn kho -->
-    <li class="nav-item">
-        <a class="nav-link px-3" href="{{ url('/invent') }}">
-            <i class="fas fa-warehouse me-1"></i> Kho hàng
+  
+     <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle px-3" href="#" id="catalogDropdown" role="button" 
+           data-bs-toggle="dropdown" aria-expanded="false">
+           <i class="bi bi-box-seam"></i> Kho hàng
         </a>
+        <ul class="dropdown-menu shadow-sm" aria-labelledby="catalogDropdown">
+            <li>
+                <a class="dropdown-item py-2" href="{{ url('/inventory') }}">
+                    <i class="bi bi-box-seam"></i> Quản lý kho
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item py-2" href="{{ url('/invent/import') }}">
+                    <i class="bi bi-box-arrow-in-down"></i> Nhập kho
+                </a>
+            </li>
+
+            <li>
+                <a class="dropdown-item py-2" href="{{ route('invent.export') }}">
+                    <i class="bi bi-box-arrow-up"></i> Xuất kho
+                </a>
+            </li>
+           
+        </ul>
     </li>
     <!-- Báo cáo -->
 <li class="nav-item">
-    <a class="nav-link px-3" href="{{ route('invent.report') }}">
+    <a class="nav-link px-3" href="{{ route('invent.exportReport') }}">
         <i class="fas fa-chart-bar me-1"></i> Báo cáo
     </a>
 </li>

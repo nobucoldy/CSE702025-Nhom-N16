@@ -30,10 +30,15 @@
             @enderror
         </div>
 
-        <div class="form-group">
-            <label for="import_date">Ngày nhập</label>
-            <input type="date" name="import_date" class="form-control" value="{{ old('import_date') }}">
+        <div class="form-group mb-3">
+            <label for="import_date">Ngày nhập:</label>
+            <input type="date" name="import_date" id="import_date" class="form-control"
+                value="{{ old('import_date', \Carbon\Carbon::now()->format('Y-m-d')) }}" required>
+            @error('import_date')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
+
 
 
         <div class="mb-3">

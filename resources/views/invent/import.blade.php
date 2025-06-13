@@ -5,7 +5,7 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>
-            <i class="fas fa-boxes text-primary me-2"></i>Quản lý kho
+            <i class=""></i>Nhập kho
         </h2>
         <a href="{{ route('invent.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Thêm hàng hóa
@@ -41,7 +41,7 @@
                         <i class="fas fa-search me-1"></i> Tìm kiếm
                     </button>
                     @if(request()->has('keyword'))
-                        <a href="{{ route('invent.index') }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('invent.import') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-undo"></i>
                         </a>
                     @endif
