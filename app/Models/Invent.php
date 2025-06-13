@@ -14,6 +14,7 @@ class Invent extends Model
     protected $fillable = [ 
         'codePro', 
         'quantity', 
+        'import_date',
         'description', 
     ]; 
 

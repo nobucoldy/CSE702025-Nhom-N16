@@ -61,6 +61,7 @@
                                 <th>Mã sản phẩm</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
+                                <th>Ngày nhập</th>
                                 <th>Mô tả</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
@@ -71,6 +72,7 @@
                                 <td>{{ $item->codePro }}</td>
                                 <td>{{ $item->productList->name ?? 'N/A' }}</td>
                                 <td>{{ $item->quantity }}</td>
+                                <td>{{ $item->import_date}}</td>
                                 <td>{{ Str::limit($item->description, 50) }}</td>
                                 <td class="text-center" >
                                     <div class="btn-group btn-group-sm">

@@ -12,6 +12,7 @@ class CreateInventTable extends Migration
             $table->id();
             $table->string('codePro', 50);
             $table->integer('quantity');
+            $table->date('import_date');
             $table->text('description')->nullable();
             $table->timestamps();
 

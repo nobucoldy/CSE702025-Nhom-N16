@@ -30,6 +30,12 @@
             @enderror
         </div>
 
+        <div class="form-group">
+            <label for="import_date">Ngày nhập</label>
+            <input type="date" name="import_date" class="form-control" value="{{ old('import_date') }}">
+        </div>
+
+
         <div class="mb-3">
             <label for="description" class="form-label">Mô tả</label>
             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description">{{ old('description') }}</textarea>
