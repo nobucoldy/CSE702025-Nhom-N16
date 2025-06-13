@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Invent;
+use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\ProductsList;
@@ -53,6 +54,12 @@ Route::match(['get', 'post'], '/invent/export', [InventController::class, 'expor
 
 });
     Route::get('/invent/export-report', [InventController::class, 'exportReport'])->name('invent.exportReport');
+    
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+});
 
 
 

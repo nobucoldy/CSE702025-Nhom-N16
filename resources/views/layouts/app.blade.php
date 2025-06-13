@@ -246,9 +246,15 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @can('isAdmin')
+                                        <a class="dropdown-item" href="{{ route('users.index') }}">
+                                            <i class=""></i> Người dùng
+                                        </a>
+                                    @endcan
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
                                         {{ __('Đăng xuất') }}
                                     </a>
 
@@ -256,6 +262,7 @@
                                         @csrf
                                     </form>
                                 </div>
+
                             </li>
                         @endguest
                     </ul>
