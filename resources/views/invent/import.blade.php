@@ -63,7 +63,7 @@
                                 <th>Số lượng</th>
                                 <th>Ngày nhập</th>
                                 <th>Mô tả</th>
-                                <th class="text-center">Thao tác</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -74,22 +74,7 @@
                                 <td>{{ $item->quantity }}</td>
                                 <td>{{ $item->import_date}}</td>
                                 <td>{{ Str::limit($item->description, 50) }}</td>
-                                <td class="text-center" >
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('invent.edit', $item->id) }}" 
-                                           class="btn btn-warning" title="Sửa">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('invent.destroy', $item->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" title="Xóa" 
-                                                    onclick="return confirm('Xác nhận xóa hàng hóa này?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                                    
                             </tr>
                             @endforeach
                         </tbody>

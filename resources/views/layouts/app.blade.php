@@ -248,7 +248,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @can('isAdmin')
                                         <a class="dropdown-item" href="{{ route('users.index') }}">
-                                            <i class=""></i> Người dùng
+                                            <i class=""></i> Quản lý tài khoản
                                         </a>
                                     @endcan
 
