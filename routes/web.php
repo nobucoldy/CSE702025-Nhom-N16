@@ -1,12 +1,13 @@
 <?php
 
 use App\Models\Invent;
-use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\ProductsList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\InventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
@@ -60,7 +61,7 @@ Route::match(['get', 'post'], '/invent/export', [InventController::class, 'expor
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
-
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 });
